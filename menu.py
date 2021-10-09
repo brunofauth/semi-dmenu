@@ -126,11 +126,11 @@ def create_menu(choices: Sequence[str]) -> Tk:
 
 
 def main(choices: list[str]) -> None:
-    if len(sys.argv) == 1:
+    if not len(choices):
         return
     create_menu(choices).mainloop()
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main([line.strip() for line in sys.stdin])
 
