@@ -1,3 +1,7 @@
+#! /usr/bin/env python3
+# TODO: swap tk.Listbox for ttk.TreeView
+
+
 from tkinter import *
 from tkinter import ttk
 from typing import Sequence, Callable, Optional
