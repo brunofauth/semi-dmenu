@@ -96,6 +96,7 @@ def on_next_item(ranje: DynamicCircularRange, box: Listbox) -> Callable:
 def create_menu(choices: Sequence[str]) -> Tk:
     root = Tk()
     root.title("Pick an Entry")
+    root.geometry("320x240")
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
