@@ -93,6 +93,15 @@ def on_next_item(ranje: DynamicCircularRange, box: Listbox) -> Callable:
     return callback
 
 
+def on_escape(query_str: StringVar) -> None:
+    def callback(*_) -> None:
+        if query_str.get():
+            query_str.set("")
+        else:
+            raise SystemExit
+    return callback
+
+
 def create_menu(choices: Sequence[str]) -> Tk:
     root = Tk()
     root.title("Pick an Entry")
@@ -123,6 +132,7 @@ def create_menu(choices: Sequence[str]) -> Tk:
     root.bind("<Left>", on_prev_item(option_idx, options_box))
     root.bind("<Right>", on_next_item(option_idx, options_box))
     root.bind("<Return>", on_select_entry(chosen_option, options_box))
+    root.bind("<Escape>", on_escape(query_str))
 
     return root
 
