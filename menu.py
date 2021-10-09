@@ -95,24 +95,25 @@ def on_next_item(ranje: DynamicCircularRange, box: Listbox) -> Callable:
 
 def create_menu(choices: Sequence[str]) -> Tk:
     root = Tk()
-    root.title("Minecraft")
-
-    root_frame = ttk.Frame(root)
-    root_frame.grid(column=0, row=0, sticky=(N, S, E, W))
-
+    root.title("Pick an Entry")
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
+    root_frame = ttk.Frame(root)
+    root_frame.grid(column=0, row=0, sticky=(N, S, E, W))
+    root_frame.columnconfigure(0, weight=1)
+    root_frame.rowconfigure(1, weight=1)
+
     chosen_option = StringVar(value=choices)
     options_box = Listbox(root_frame, height=10, listvariable=chosen_option)
-    options_box.grid(column=0, row=1, sticky=(S, E, W))
+    options_box.grid(column=0, row=1, sticky=(N, S, E, W))
     options_box.select_set(0)
 
     option_idx = DynamicCircularRange(lambda: 0, lambda: len(eval(chosen_option.get())))
 
     query_str = StringVar()
     query_entry = ttk.Entry(root_frame, textvariable=query_str)
-    query_entry.grid(column=0, row=0, sticky=(N, E, W))
+    query_entry.grid(column=0, row=0, sticky=(N, S, E, W))
     query_entry.focus()
     query_str.trace_add("write", on_query_change(query_str, choices, chosen_option, options_box))
 
