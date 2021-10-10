@@ -10,7 +10,7 @@ import thefuzz.process as tfp
 import sys
 
 
-FUZZY_STR_THRESHOLD = .8
+FUZZY_STR_THRESHOLD = .9
 
 
 class DynamicCircularRange:
