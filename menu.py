@@ -2,22 +2,23 @@
 # TODO: swap tk.Listbox for ttk.TreeView
 
 
-from tkinter import *
+from tkinter import StringVar, Tk, N, S, E, W, Listbox, END
 from tkinter import ttk
-from typing import Sequence, Callable, Optional
+from typing import Sequence, Callable
 
 import thefuzz.process as tfp
 import sys
 
 
 FUZZY_STR_THRESHOLD = .9
+IntFactory = Callable[[], int]
 
 
 class DynamicCircularRange:
 
-    def __init__(self, lower_fac: Callable[[], int], upper_fac: Callable[[], int], init: Optional[int]=None):
-        self._lower_bound_factory = lower_fac
-        self._upper_bound_factory = upper_fac
+    def __init__(self, lower: IntFactory, upper: IntFactory, init: int | None=None):
+        self._lower_bound_factory = lower
+        self._upper_bound_factory = upper
 
         init = init or self.lower_bound
         self.raise_if_out_of_bounds(init)
@@ -30,7 +31,10 @@ class DynamicCircularRange:
 
     def raise_if_out_of_bounds(self, value: int) -> None:
         if value not in self:
-            raise ValueError(f"{value=} is outside of [{self.lower_bound},{self.upper_bound}[")
+            raise ValueError(f"{value=} is outside of {self}")
+
+    def __str__(self) -> str:
+        f"[{self.lower_bound},{self.upper_bound}["
 
     @property
     def lower_bound(self):
